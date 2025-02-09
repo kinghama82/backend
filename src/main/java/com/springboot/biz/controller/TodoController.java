@@ -5,6 +5,7 @@ import com.springboot.biz.dto.PageResponseDTO;
 import com.springboot.biz.dto.TodoDto;
 import com.springboot.biz.service.TodoService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -23,7 +24,9 @@ public class TodoController {
     }
     //목록
     @GetMapping("/list")
+    @PreAuthorize("hasRole('ROLE_USER', 'ROLE_ADMIN')")
     public PageResponseDTO<TodoDto> list(PageRequestDTO pageRequestDTO){
+        log.info("list------:" + pageRequestDTO);
         return todoService.list(pageRequestDTO);
     }
 
