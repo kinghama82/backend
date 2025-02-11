@@ -34,7 +34,12 @@ public class Product {
 
     private String pdesc;
 
+    
     private boolean delFlag;
+    
+    public void changeDel(boolean delFlag) {
+    	this.delFlag = delFlag;
+    }
 
     @ElementCollection   //값 타입 객체 하나의 상품 데이터가 여러개의 상품 이미지를 가질 수 있도록 해줌
     //2개의 테이블을 처리할때 한번에 모든 테이블을 같이 로딩해서 처리(EAGER) 필요할때만로딩 (LAZY)

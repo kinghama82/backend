@@ -5,11 +5,15 @@ import com.springboot.biz.dto.PageResponseDTO;
 import com.springboot.biz.dto.TodoDto;
 import com.springboot.biz.service.TodoService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
+import lombok.extern.log4j.Log4j2;
+
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
+@Log4j2
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/todo")
