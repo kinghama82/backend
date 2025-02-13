@@ -39,7 +39,7 @@ public class ProductController {
         log.info("register: " + productDTO);
         
         List<MultipartFile> files = productDTO.getFiles();
-
+        
         List<String> uploadFileNames = fileUtil.saveFiles(files);
 
         productDTO.setUploadFileNames(uploadFileNames);
@@ -58,6 +58,7 @@ public class ProductController {
     
     @GetMapping("/list")
     public PageResponseDTO<ProductDTO> list(PageRequestDTO pageRequestDTO){
+    	log.info("list---------------" + pageRequestDTO);
     	return productService.getList(pageRequestDTO);
     }
     

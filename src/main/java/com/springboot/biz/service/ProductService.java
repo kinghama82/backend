@@ -135,6 +135,7 @@ public class ProductService {
 		product.changeName(productDTO.getPname());
 		product.changeDesc(productDTO.getPdesc());
 		product.changePrice(productDTO.getPrice());
+		product.changeDel(productDTO.isDelFlag());   
 		
 		product.clearList();
 		
@@ -145,6 +146,7 @@ public class ProductService {
 				product.addImageString(uploadName);
 			});
 		}
+		
 		productRepository.save(product);
 	}
 	//삭제
