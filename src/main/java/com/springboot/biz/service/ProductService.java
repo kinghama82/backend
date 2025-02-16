@@ -51,10 +51,14 @@ public class ProductService {
 					.price(product.getPrice())
 					.build();
 			
-			String imageStr = productImage.getFileName();
-			productDTO.setUploadFileNames(List.of(imageStr));
-			
-			return productDTO;
+			if (productImage != null) {
+	            String imageStr = productImage.getFileName();
+	            productDTO.setUploadFileNames(List.of(imageStr));
+	        } else {
+	            productDTO.setUploadFileNames(List.of());
+	        }
+	        
+	        return productDTO;
 		}).collect(Collectors.toList());
 		
 		long totalCount = result.getTotalElements();

@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -90,6 +91,8 @@ public class ProductController {
     		uploadFileNames.addAll(currentUploadFileNames);
     	}
     	//수정
+    	productDTO.setUploadFileNames(uploadFileNames);
+    	log.info("이미지 파일 이름 : " + uploadFileNames);
     	productService.modify(productDTO);
     	
     	if(oldFileNames != null && oldFileNames.size() > 0) {
@@ -102,9 +105,14 @@ public class ProductController {
     		//파일삭제
     		fileUtil.deleteFiles(removeFiles);
     	}
-    	return Map.of("result", "수정성공");
+    	return Map.of("result", "수정 성공");
     }
     
+    @DeleteMapping("/{pno}")
+    public Map<String, String> remove(@PathVariable(name = "pno") Long pno) {
+    	productService.remove(pno);
+    	return Map.of("result", "삭제 성공");
+    }
     
 
 }

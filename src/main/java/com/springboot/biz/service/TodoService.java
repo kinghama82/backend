@@ -1,11 +1,9 @@
 package com.springboot.biz.service;
 
-import com.springboot.biz.domain.Todo;
-import com.springboot.biz.dto.PageRequestDTO;
-import com.springboot.biz.dto.PageResponseDTO;
-import com.springboot.biz.dto.TodoDto;
-import com.springboot.biz.repository.TodoRepository;
-import lombok.RequiredArgsConstructor;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -13,9 +11,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import com.springboot.biz.domain.Todo;
+import com.springboot.biz.dto.PageRequestDTO;
+import com.springboot.biz.dto.PageResponseDTO;
+import com.springboot.biz.dto.TodoDto;
+import com.springboot.biz.repository.TodoRepository;
+
+import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
@@ -47,8 +49,8 @@ public class TodoService {
 
         Todo todo = result.orElseThrow();
 
-        todo.setTitle(todo.getTitle());
-        todo.setWriter(todo.getWriter());
+        todo.setTitle(todoDto.getTitle());
+        todo.setWriter(todoDto.getWriter());
         todo.setComplete(todoDto.isComplete());
 
         todoRepository.save(todo);
