@@ -2,6 +2,8 @@ package com.springboot.biz.config;
 
 import com.springboot.biz.security.APILoginFailHandler;
 import com.springboot.biz.security.APILoginSuccessHandler;
+import com.springboot.biz.security.filter.JWTCheckFilter;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.context.annotation.Bean;
@@ -11,6 +13,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -30,7 +33,7 @@ public class CustomSecurityConfig {
         http.cors(httpSecurityCorsConfigurer -> {
             httpSecurityCorsConfigurer.configurationSource(corsConfigurationSource());
         });
-        http.sessionManagement(SessionConfig -> SessionConfig.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+        http.sessionManagement(SessionConfig -> SessionConfig.sessionCreationPolicy(SessionCreationPolicy.NEVER));
         //stateless 무상태 서버가 클라이언트의 상태를 보존하지 않음 stateful 상태유지 서버가 클라이언트의 상태를 보존함
         http.csrf(config -> config.disable());
 
@@ -41,6 +44,8 @@ public class CustomSecurityConfig {
             config.failureHandler(new APILoginFailHandler());
 
         });
+        //JWT체크
+        http.addFilterBefore(new JWTCheckFilter(), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 
